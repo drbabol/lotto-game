@@ -1,4 +1,4 @@
-const {Bill, howManyBills, initializeBills, printBills}  = require('./utils');
+const {Bill, howManyBills, initializeUserBills, printBills}  = require('./utils');
 
 //const prompt = require('prompt-sync')();
 

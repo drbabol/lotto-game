@@ -40,10 +40,8 @@ class Bill {
             city = prompt(`Please enter a VALID city for the bill number ${this.name} from the following list: ${cities.join(', ')}. `,'')
         }
         return city
-
     }
     #setNumbers(){
-        const minNum = 1
         const maxNum = 90
         let numEtraction = this.#getQuanty()
         const numbersArry = new Set() //unique values
@@ -79,7 +77,7 @@ const howManyBills = () =>{
  * @param {Number} billsNumber 
  * @returns {Array of Object}
  */
-const initializeBills = billsNumber => {
+const initializeUserBills = billsNumber => {
     const billsWithContent = []
     if (isNaN(billsNumber)||billsNumber===0){ console.log('There was no initialization of bills.') }
     else{
@@ -126,7 +124,7 @@ output = `${header}\n${arrayOfString.join('\n')}\n${footer}`
 return output
 }
 
-exports.module = {Bill, howManyBills, initializeBills, printBills}
+exports.module = {Bill, howManyBills, initializeUserBills, printBills}
 
 //personal test
-console.log(printBills(initializeBills(howManyBills())))
+console.log(printBills(initializeUserBills(howManyBills())))
