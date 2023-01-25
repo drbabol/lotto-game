@@ -22,11 +22,13 @@ Requirements:
 - numbers will be randomly generated in the range 1-90 (inclusive)
 - you have to print the generated tickets with nice ascii art table decoration (https://ozh.github.io/ascii-tables/)
 
-Personal hints:
-----------------
-The first task should be the OOP class entity modeling.
+# Lotto fake extraction
+Add lotto number extraction phase and check if some of the tickets you generated result winners.
+
+
 
 Useful links:
 -------------------
 - https://www.sisal.it/lotto/come-si-gioca
+- https://www.servizitelevideo.rai.it/televideo/pub/pagina.jsp?p=786&s=0&r=Nazionale&idmenumain=0
 - https://www.servizitelevideo.rai.it/televideo/pub/pagina.jsp?p=786&s=0&r=Nazionale&idmenumain=0
