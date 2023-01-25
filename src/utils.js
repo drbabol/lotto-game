@@ -28,7 +28,7 @@ class Bill {
         const minNum = 1
         const maxNum = 10
         let quantity = +parseInt(prompt('Please enter the number of numbers you want to play between 1 and 10: ',0))
-        while((quantity<minNum || quantity>maxNum)){
+        while((quantity<minNum || quantity>maxNum) || isNaN(quantity)){
             quantity = +parseInt(prompt('Please enter a number between 1 and 10: ',0))
         }
         return quantity
@@ -70,7 +70,7 @@ const howManyBills = () =>{
     while((userNumber<minNum || userNumber>maxNum) || isNaN(userNumber)){
         userNumber = +parseInt(prompt('Please enter a number between 1 and 5 (0 to exit): ',0))
     }
-    if (userNumber===0){return `the request has been stoped.`}
+    if (userNumber===0){console.log(`the request has been stoped.`)}
     return userNumber
 }
 
@@ -81,7 +81,7 @@ const howManyBills = () =>{
  */
 const initializeBills = billsNumber => {
     const billsWithContent = []
-    if (isNaN(billsNumber)){return `Please restart the software and select the number of bills you want to play.`}
+    if (isNaN(billsNumber)||billsNumber===0){ console.log('There was no initialization of bills.') }
     else{
         for(i=1;i<=billsNumber;i++){
             billsWithContent.push(new Bill(i))
@@ -96,6 +96,8 @@ const initializeBills = billsNumber => {
  * @returns {String} console.log the final result in a nice template
  */
 const printBills = (bills) => {
+
+if(bills === undefined){return  `Please restart the software and select the number of bills you want to play.`}
 
 //max number of characters consider in the print in each sections
 const maxBillNChar = 12 
