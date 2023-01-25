@@ -23,7 +23,7 @@ Requirements:
 - you have to print the generated tickets with nice ascii art table decoration (https://ozh.github.io/ascii-tables/)
 
 Lotto fake extraction
-Add lotto number extraction phase and check if some of the tickets you generated result winners.
+- Add lotto number extraction phase and check if some of the tickets you generated result winners.
 
 
 
