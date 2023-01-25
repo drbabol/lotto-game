@@ -65,9 +65,9 @@ class Bill {
 const howManyBills = () =>{
     const minNum = 0
     const maxNum = 5
-    let userNumber = +parseInt(prompt('Please enter the number of bills you want to play between 1 and 5 (0 to exit): ',0))
+    let userNumber = parseInt(prompt('Please enter the number of bills you want to play between 1 and 5 (0 to exit): ',0))
 
-    while((userNumber<minNum || userNumber>maxNum)){
+    while((userNumber<minNum || userNumber>maxNum) || isNaN(userNumber)){
         userNumber = +parseInt(prompt('Please enter a number between 1 and 5 (0 to exit): ',0))
     }
     if (userNumber===0){return `the request has been stoped.`}
@@ -127,4 +127,4 @@ return output
 exports.module = {Bill, howManyBills, initializeBills, printBills}
 
 //personal test
-//console.log(printBills(initializeBills(howManyBills())))
+console.log(printBills(initializeBills(howManyBills())))
