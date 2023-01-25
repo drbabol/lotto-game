@@ -22,7 +22,7 @@ Requirements:
 - numbers will be randomly generated in the range 1-90 (inclusive)
 - you have to print the generated tickets with nice ascii art table decoration (https://ozh.github.io/ascii-tables/)
 
-# Lotto fake extraction
+Lotto fake extraction
 Add lotto number extraction phase and check if some of the tickets you generated result winners.
 
 
