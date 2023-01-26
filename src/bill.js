@@ -43,47 +43,31 @@ class Bill {
         const maxNum = 90
         let numExtraction = this.selectQuantity()
         const numbersArry = new Set() //unique values
-
-        while (numExtraction!=0){
+    
+        while (numbersArry.size!=numExtraction){
             const randomNum = Math.floor(Math.random()*maxNum)+1
             numbersArry.add(randomNum)
-            numExtraction--
         }
         return [...numbersArry].join(',')
     }
     /**
-     * method to print bills
-     * @param {Array of Object} bills 
-     * @returns {String} console.log the final result in a nice template
+     * method to print one line bill parameters
+     * @param {Number} maxBillNChar max number of characters in the column of "Bill n°"
+     * @param {Number} maxCityCharmax number of characters in the column of "City"
+     * @param {Number} maxTypeChar number of characters in the column of "Type"
+     * @param {Number} maxNumbersChar number of characters in the column of "Numbers"
+     * @returns {String} the single bill string in a nice template
      */
-    static printBill(bills){
-        if(bills === undefined){return  `Please restart the software and select the number of bills you want to play.`}
+    print(maxBillNChar,maxCityChar,maxTypeChar,maxNumbersChar){
 
-        //max number of characters consider in the print in each sections
-        const maxBillNChar = 12 
-        const maxCityChar = 10
-        const maxTypeChar = 10
-        const maxNumbersChar = 31
-    
-        const header = `
-+------------+----------+----------+-------------------------------+
-¦   Bill n°  ¦   City   ¦   Type   ¦            Numbers            ¦
-+------------+----------+----------+-------------------------------+`
-        const footer = `+------------+----------+----------+-------------------------------+`
-    
-        const arrayOfString = []
-        bills.forEach(bill => {
-    
-            const billNameString =`¦` + bill['name'].toString().padStart(maxBillNChar/2,' ') + `¦`.padStart((maxBillNChar/2)+1,' ')
-            const cityNameString = bill['city'].toString().padStart(bill['city'].toString().length + 1,' ') + `¦`.padStart(maxCityChar-bill['city'].toString().length,' ')
-            const typeNameString = bill['type'].toString().padStart(bill['type'].toString().length + 1,' ') + `¦`.padStart(maxTypeChar-bill['type'].toString().length,' ')
-            const numbersNameString = bill['numbers'].toString().padStart(bill['numbers'].toString().length + 1,' ') + `¦`.padStart(maxNumbersChar-bill['numbers'].toString().length,' ')
-    
-            const totalString = billNameString + cityNameString + typeNameString + numbersNameString
-            arrayOfString.push(`${totalString}`)
-        });
-        const output = `${header}\n${arrayOfString.join('\n')}\n${footer}`
-        return output
+        const billNameString =`¦` + this.name.toString().padStart(maxBillNChar/2,' ') + `¦`.padStart((maxBillNChar/2)+1,' ')
+        const cityNameString = this.city.toString().padStart(this.city.toString().length + 1,' ') + `¦`.padStart(maxCityChar-this.city.toString().length,' ')
+        const typeNameString = this.type.toString().padStart(this.type.toString().length + 1,' ') + `¦`.padStart(maxTypeChar-this.type.toString().length,' ')
+        const numbersNameString = this.numbers.toString().padStart(this.numbers.toString().length + 1,' ') + `¦`.padStart(maxNumbersChar-this.numbers.toString().length,' ')
+
+        const totalString = billNameString + cityNameString + typeNameString + numbersNameString
+        
+        return totalString
     }
 }
 
