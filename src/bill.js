@@ -69,6 +69,11 @@ class Bill {
         
         return totalString
     }
+    /**
+     * Method to check the win bill compared to a random total extraction 
+     * @param {Object} totalExtraction is an object composed of cityName: [n1,n2,n3,n4,5] exe: {Roma: [4,5,22,56,76,90], ...} 
+     * @returns {Boolean} True if the bill is a WIN bill otherwise false
+     */
     checkWinBill(totalExtraction){
         const objType = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
         const thisTypeConverted = objType[this.type]

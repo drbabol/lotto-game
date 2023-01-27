@@ -8,7 +8,7 @@ const allCityExtraction = lottoExtraction()
 
 /**
  * Function to print my objects bills
- * @param {Array of Object} bills array of bills
+ * @param {Array of Object} bills array of bills exe: [{name:1,city:'Roma',type:'ambo',numbers:'1,4,66,76,32,90'},{...}]
  * @returns {string} string with nice format
  */
 const printBills = (bills) => {
@@ -33,7 +33,11 @@ const printBills = (bills) => {
     const output = `${header}\n${arrayOfbillsString.join('\n')}\n${footer}`
     return output
 }
-
+/**
+ * function to print in nice format the total extraction
+ * @param {Object} extraction is an object composed of cityName: [n1,n2,n3,n4,5] exe: {Roma: [4,5,22,56,76,90], ...} 
+ * @returns {String} nice formatted string
+ */
 const printTotalExtraction = extraction => {
     const header = `
 Extractions:
@@ -49,7 +53,12 @@ Extractions:
     output = header + '\n' + arrayOutput.join('\n') + '\n' + footer
     return output
 }
-
+/**
+ * function to check all the winning bills that the user decided to play
+ * @param {*} extraction is an object composed of cityName: [n1,n2,n3,n4,5] exe: {Roma: [4,5,22,56,76,90], ...} 
+ * @param {*} bills array of bills exe: [{name:1,city:'Roma',type:'ambo',numbers:'1,4,66,76,32,90'},{...}]
+ * @returns {String} nice formatted string
+ */
 const checkBillsWinner = (extraction, bills) => {
 
     if(bills === undefined){return  `Please restart the software and select the number of bills you want to play.`}
