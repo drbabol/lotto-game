@@ -40,28 +40,29 @@ const initializeUserBills = billsNumber => {
     }
 }
 
-// working in progess lotto extraction
+/**
+ * function to create a random object of the extraction of all the cities
+ * @returns {Object} objCity is an object composed {city: [n1,n2,n3,n4,n5]}
+ */
 const lottoExtraction = () => {
 
-    const extractedNumbers = new Set()
-    const lottoExtractionArryObj = []
+    const extractedNumbers = new Set() //set of all the numbers for all the cities
     const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
     let startIndexArray = 0
-    const numberExtractedNumbersForCity = 5
-    const numberExtractedNumbers = numberExtractedNumbersForCity * cities.length //50
+    const numberExtractedForCity = 5
+    const totalNumberExtracted = numberExtractedForCity * cities.length //50
     const maxNum = 90
     const objCity = {}
 
-    while (extractedNumbers.size!=numberExtractedNumbers){
+    while (extractedNumbers.size!=totalNumberExtracted){
         const randomNumber = Math.floor(Math.random()*maxNum)+1
         extractedNumbers.add(randomNumber)
     }
-    const arrayRandomNum = [...extractedNumbers]
+    const arrayExtractedNumbers = [...extractedNumbers]
     
     cities.forEach(city => {
-        objCity[city] = arrayRandomNum.slice(startIndexArray,startIndexArray+numberExtractedNumbersForCity)
+        objCity[city] = arrayExtractedNumbers.slice(startIndexArray,startIndexArray+numberExtractedForCity)
         objCity[city].sort((a,b)=>{return a-b})
-        lottoExtractionArryObj.push(objCity)
         startIndexArray += 5
     })
     return objCity
