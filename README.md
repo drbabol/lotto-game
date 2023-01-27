@@ -26,10 +26,15 @@ Lotto fake extraction:
 ----------------
 - Add lotto number extraction phase and check if some of the tickets you generated result winners.
 
-
+Lotto caclulate prizes:
+----------------
+- Calculate prizes if some of the tickets you generated result winners.
+- When asking for tickets to generate you have also to ask the amount of money to put for each ticket.
+-it a particular ticket won you have to calculate and show the prizes, both gross and net.
 
 Useful links:
 -------------------
 - https://www.sisal.it/lotto/come-si-gioca
 - https://www.servizitelevideo.rai.it/televideo/pub/pagina.jsp?p=786&s=0&r=Nazionale&idmenumain=0
 - https://www.servizitelevideo.rai.it/televideo/pub/pagina.jsp?p=786&s=0&r=Nazionale&idmenumain=0
+- https://www.estrazionedellotto.it/prontuario-vincite-lotto)
