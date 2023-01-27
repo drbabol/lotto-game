@@ -30,7 +30,7 @@ Lotto caclulate prizes:
 ----------------
 - Calculate prizes if some of the tickets you generated result winners.
 - When asking for tickets to generate you have also to ask the amount of money to put for each ticket.
--it a particular ticket won you have to calculate and show the prizes, both gross and net.
+- it a particular ticket won you have to calculate and show the prizes, both gross and net.
 
 Useful links:
 -------------------
