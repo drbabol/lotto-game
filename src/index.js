@@ -51,11 +51,24 @@ Extractions:
 }
 
 const checkBillsWinner = (extraction, bills) => {
-    let arrayOfResultString = [] 
+
+    if(bills === undefined){return  `Please restart the software and select the number of bills you want to play.`}
+
+    const maxBillNChar = 12 
+    const maxCityChar = 10
+    const maxTypeChar = 10
+    const maxNumbersChar = 31
+    const arrayOfResultString = [] 
+    const winningBills = []
+
     bills.forEach(bill => {
-        if (bill.checkWinBill(extraction)){arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city}  WON!`)}
+        if (bill.checkWinBill(extraction)){
+            arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city}  WON!`)
+            winningBills.push(bill.print(maxBillNChar,maxCityChar,maxTypeChar,maxNumbersChar))//not necessary in my rappresentation of the winning bills
+        }
         else arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city} LOOSE!`)
     })
+    //console.log(`winning bills: ${winningBills}`)
     return  '\n' + printTotalExtraction(extraction) + arrayOfResultString.join('\n') + printBills(bills)
 }
 
