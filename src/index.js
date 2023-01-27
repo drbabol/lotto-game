@@ -1,9 +1,10 @@
 //import
-const {howManyBills, initializeUserBills}  = require('./utils');
+const {howManyBills, initializeUserBills, lottoExtraction}  = require('./utils');
 const Bill  = require('./bill');
 
 //array of object
 const bills = initializeUserBills(howManyBills())
+const allCityExtraction = lottoExtraction()
 
 /**
  * Function to print my objects bills
@@ -33,5 +34,31 @@ const printBills = (bills) => {
     return output
 }
 
+const printTotalExtraction = extraction => {
+    const header = `
+Extractions:
++----------+----------------+
+¦ City     ¦ Numbers        ¦
++----------+----------------+`
+    const footer = `+----------+----------------+\n\n`
+    let output = ''
+    const arrayOutput = []
+    for (const key in extraction){
+        arrayOutput.push(`¦` + key.toString().padStart(key.toString().length + 1,' ') + `¦`.padStart(10-key.toString().length,' ') + extraction[key].toString().padStart(extraction[key].toString().length + 1,' ') + `¦`.padStart(16-extraction[key].toString().length,' '))
+    }
+    output = header + '\n' + arrayOutput.join('\n') + '\n' + footer
+    return output
+}
+
+const checkBillsWinner = (extraction, bills) => {
+    let arrayOfResultString = [] 
+    bills.forEach(bill => {
+        if (bill.checkWinBill(extraction)){arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city}  WON!`)}
+        else arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city} LOOSE!`)
+    })
+    return  '\n' + printTotalExtraction(extraction) + arrayOfResultString.join('\n') + printBills(bills)
+}
+
 //personal tests 
-console.log(printBills(bills))
+//console.log(printBills(bills))
+console.log(checkBillsWinner(allCityExtraction,bills))

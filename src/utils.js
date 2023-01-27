@@ -46,26 +46,27 @@ const lottoExtraction = () => {
     const extractedNumbers = new Set()
     const lottoExtractionArryObj = []
     const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
+    let startIndexArray = 0
     const numberExtractedNumbersForCity = 5
     const numberExtractedNumbers = numberExtractedNumbersForCity * cities.length //50
     const maxNum = 90
     const objCity = {}
-    
+
     while (extractedNumbers.size!=numberExtractedNumbers){
         const randomNumber = Math.floor(Math.random()*maxNum)+1
         extractedNumbers.add(randomNumber)
     }
-    const ArrayRandomNum = [...extractedNumbers]
-
-    for(n=0;n<ArrayRandomNum.length;n+=5){
-        cities.forEach(city => {
-            objCity[city] = [ArrayRandomNum[n],ArrayRandomNum[n+1],ArrayRandomNum[n+2],ArrayRandomNum[n+3],ArrayRandomNum[n+4]] 
-            lottoExtractionArryObj.push(objCity)
-        })
-    }
+    const arrayRandomNum = [...extractedNumbers]
+    
+    cities.forEach(city => {
+        objCity[city] = arrayRandomNum.slice(startIndexArray,startIndexArray+numberExtractedNumbersForCity)
+        objCity[city].sort((a,b)=>{return a-b})
+        lottoExtractionArryObj.push(objCity)
+        startIndexArray += 5
+    })
     return objCity
 }
 
 //console.log(lottoExtraction())
 
-module.exports = {howManyBills, initializeUserBills}
+module.exports = {howManyBills, initializeUserBills, lottoExtraction}

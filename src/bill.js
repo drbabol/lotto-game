@@ -48,7 +48,7 @@ class Bill {
             const randomNum = Math.floor(Math.random()*maxNum)+1
             numbersArry.add(randomNum)
         }
-        return [...numbersArry].join(',')
+        return [...numbersArry].sort((a,b)=>{return a-b}).join(',')
     }
     /**
      * method to print one line bill parameters
@@ -68,6 +68,14 @@ class Bill {
         const totalString = billNameString + cityNameString + typeNameString + numbersNameString
         
         return totalString
+    }
+    checkWinBill(totalExtraction){
+        const objType = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
+        const thisTypeConverted = objType[this.type]
+        const arrayNumbers =  this.numbers.split(',').map(n=>+n)
+        const filterdArrayCommonNumbers =  totalExtraction[this.city].filter(number=>arrayNumbers.includes(number))
+        if(filterdArrayCommonNumbers.length>=thisTypeConverted){return true}
+        else return false
     }
 }
 
