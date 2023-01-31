@@ -30,18 +30,19 @@ class Bill {
         }
         return type
     }
-    static selectQuantity(){
-        const minNum = 1
+    static selectQuantity(type){
+        const objType = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
+        const minNum = objType[type]
         const maxNum = 10
         let quantity = +parseInt(prompt('Please enter the number of numbers you want to play between 1 and 10: ',0))
-        while((quantity<minNum || quantity>maxNum) || isNaN(quantity)){
-            quantity = +parseInt(prompt('Please enter a number between 1 and 10: ',0))
+        while(quantity<minNum || quantity>maxNum || isNaN(quantity)){
+            quantity = +parseInt(prompt(`Please enter a number between ${minNum} and 10: `,0))
         }
         return quantity
     }
-    static selectNumbers(){
+    static selectNumbers(type){
         const maxNum = 90
-        let numExtraction = this.selectQuantity()
+        let numExtraction = this.selectQuantity(type)
         const numbersArry = new Set() //unique values
     
         while (numbersArry.size!=numExtraction){

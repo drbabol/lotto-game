@@ -33,7 +33,8 @@ const initializeUserBills = billsNumber => {
             const name = i
             const city = Bill.selectCity()
             const type = Bill.selectType()
-            const numbers = Bill.selectNumbers()
+            //const quantity = Bill.selectQuantity(type)
+            const numbers = Bill.selectNumbers(type)
             billsWithContent.push(new Bill(name,city,type,numbers))
         }
         return billsWithContent
