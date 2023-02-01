@@ -1,7 +1,6 @@
-//import
+////package &import
+const {cities}  = require('./utils-global-variable');
 const Bill  = require('./bill');
-
-//package
 const prompt = require('prompt-sync')();
 
 /**
@@ -21,7 +20,7 @@ const howManyBills = () =>{
     return userNumber
 }
 /**
- * func to initializate the bills
+ * func to initializate the bills exe: [{1,'Roma','ambata',[1,2,3,4,5],10.00€},{...}]
  * @param {Number} billsNumber 
  * @returns {Array of Object}
  */
@@ -33,39 +32,55 @@ const initializeUserBills = billsNumber => {
             const name = i
             const city = Bill.selectCity()
             const type = Bill.selectType()
-            const numbers = Bill.selectNumbers()
-            billsWithContent.push(new Bill(name,city,type,numbers))
+            const numbers = Bill.selectNumbers(type)
+            const bet = Bill.selectBet()
+            billsWithContent.push(new Bill(name,city,type,numbers,bet))
         }
         return billsWithContent
     }
 }
 
-// working in progess lotto extraction
+/**
+ * function to create a random object of the extraction of all the cities
+ * @returns {Object} objCity is an object composed {city: [n1,n2,n3,n4,n5]}
+ */
 const lottoExtraction = () => {
 
-    const extractedNumbers = new Set()
-    const lottoExtractionArryObj = []
-    const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
-    const numberExtractedNumbersForCity = 5
-    const numberExtractedNumbers = numberExtractedNumbersForCity * cities.length //50
+    const extractedNumbers = new Set() //set of all the numbers for all the cities
+    //const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
+    let startIndexArray = 0
+    const numberExtractedForCity = 5
+    const totalNumberExtracted = numberExtractedForCity * cities.length //50
     const maxNum = 90
     const objCity = {}
-    
-    while (extractedNumbers.size!=numberExtractedNumbers){
+
+    while (extractedNumbers.size!=totalNumberExtracted){
         const randomNumber = Math.floor(Math.random()*maxNum)+1
         extractedNumbers.add(randomNumber)
     }
-    const ArrayRandomNum = [...extractedNumbers]
-
-    for(n=0;n<ArrayRandomNum.length;n+=5){
-        cities.forEach(city => {
-            objCity[city] = [ArrayRandomNum[n],ArrayRandomNum[n+1],ArrayRandomNum[n+2],ArrayRandomNum[n+3],ArrayRandomNum[n+4]] 
-            lottoExtractionArryObj.push(objCity)
-        })
-    }
+    const arrayExtractedNumbers = [...extractedNumbers]
+    
+    cities.forEach(city => {
+        objCity[city] = arrayExtractedNumbers.slice(startIndexArray,startIndexArray+numberExtractedForCity)
+        objCity[city].sort((a,b)=>{return a-b})
+        startIndexArray += 5
+    })
     return objCity
 }
 
-//console.log(lottoExtraction())
 
-module.exports = {howManyBills, initializeUserBills}
+
+const calculateNetPrize = (grossPrize) => {
+    let netPrize = 0
+    grossPrize > 500 ? netPrize += (grossPrize- (grossPrize*(8/100))) : netPrize=grossPrize
+    const formattedNetPrize = (netPrize).toLocaleString('it-IT', {style: 'currency', currency: 'EUR'})
+    return formattedNetPrize
+}
+
+
+module.exports = {
+    howManyBills, 
+    initializeUserBills, 
+    lottoExtraction, 
+    calculateNetPrize,
+}
