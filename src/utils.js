@@ -47,7 +47,6 @@ const initializeUserBills = billsNumber => {
 const lottoExtraction = () => {
 
     const extractedNumbers = new Set() //set of all the numbers for all the cities
-    //const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
     let startIndexArray = 0
     const numberExtractedForCity = 5
     const totalNumberExtracted = numberExtractedForCity * cities.length //50
@@ -68,15 +67,12 @@ const lottoExtraction = () => {
     return objCity
 }
 
-
-
 const calculateNetPrize = (grossPrize) => {
     let netPrize = 0
     grossPrize > 500 ? netPrize += (grossPrize- (grossPrize*(8/100))) : netPrize=grossPrize
     const formattedNetPrize = (netPrize).toLocaleString('it-IT', {style: 'currency', currency: 'EUR'})
     return formattedNetPrize
 }
-
 
 module.exports = {
     howManyBills, 

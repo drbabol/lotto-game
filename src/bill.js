@@ -19,7 +19,6 @@ class Bill {
         this.bet = bet
     }
     static selectCity(){
-        //const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia']
         let city = prompt(`Please enter a city for the bill: `,'')
         while (cities.includes(city)!=true){
             city = prompt(`Please enter a VALID city for the bill from the following list: ${cities.join(', ')}.`,'')
@@ -27,7 +26,6 @@ class Bill {
         return city
     }
     static selectType(){
-        //const typeOfBills = ['ambata','ambo','terno','quaterna','cinquina']
         let type = prompt(`Please enter a type for the bill: `,'')
         while (typeOfBills.includes(type)!=true){
             type = prompt(`Please enter a VALID type for the bill from the following list: ${typeOfBills.join(', ')}. `,'')
@@ -35,7 +33,6 @@ class Bill {
         return type
     }
     static selectQuantity(type){
-        //const objType = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
         const minNum = objType[type]
         const maxNum = 10
         let quantity = +parseInt(prompt('Please enter the number of numbers you want to play between 1 and 10: ',0))
@@ -93,7 +90,6 @@ class Bill {
      * @returns {Boolean} True if the bill is a WIN bill otherwise false
      */
     checkWinBill(totalExtraction){
-        //const objType = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
         const thisTypeConverted = objType[this.type]
         const arrayNumbers =  this.numbers.split(',').map(n=>+n)
         const filterdArrayCommonNumbers =  totalExtraction[this.city].filter(number=>arrayNumbers.includes(number))
