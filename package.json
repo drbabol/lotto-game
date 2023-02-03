@@ -1,7 +1,7 @@
 {
   "name": "js-lotto",
   "version": "1.0.0",
-  "description": "italian lotto",
+  "description": "italian lotto simulation",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -10,11 +10,7 @@
   "author": "LG",
   "license": "MIT",
   "dependencies": {
-    "prompt": "^1.3.0",
-    "prompt-sync": "^4.2.0",
-    "prompt-sync-history": "^1.0.1",
-    "prompts": "^2.4.2",
-    "terminal-kit": "^3.0.0"
+    "prompt-sync": "^4.2.0"
   },
   "scripts": {
     "test": "jest --coverage"

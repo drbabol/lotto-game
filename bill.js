@@ -1,6 +1,6 @@
 //package & import
-const {currencyToNumber,numberToCurrency}  = require('./utils-formatting');
-const {cities,typeOfBills,objType}  = require('./utils-global-variable');
+const {currencyToNumber,numberToCurrency}  = require('./utils/utils-formatting-print');
+const {cities,typeOfBills,objTypeOfBills,maxExtractedNum,minExtractedNum, maxPlayedNum}  = require('./utils/utils-global-variable');
 const prompt = require('prompt-sync')();
 
 /**
@@ -18,6 +18,23 @@ class Bill {
         this.numbers = numbers
         this.bet = bet
     }
+    static selectQuantity(type){
+        const minPlayedNum = objTypeOfBills[type]
+        let quantity = +parseInt(prompt('Please enter the number of numbers you want to play between 1 and 10: ',0))
+        while(quantity<minPlayedNum || quantity>maxPlayedNum || isNaN(quantity)){
+            quantity = +parseInt(prompt(`Please enter a number between ${minPlayedNum} and 10: `,0))
+        }
+        return quantity
+    }
+    static selectNumbers(type){
+        let numExtraction = this.selectQuantity(type)
+        const numbersArry = new Set()
+        while (numbersArry.size!=numExtraction){
+            const randomNum = Math.floor(Math.random()*maxExtractedNum)+minExtractedNum
+            numbersArry.add(randomNum)
+        }
+        return [...numbersArry].sort((a,b)=>{return a-b}).join(',')
+    }
     static selectCity(){
         let city = prompt(`Please enter a city for the bill: `,'')
         while (cities.includes(city)!=true){
@@ -32,26 +49,7 @@ class Bill {
         }
         return type
     }
-    static selectQuantity(type){
-        const minNum = objType[type]
-        const maxNum = 10
-        let quantity = +parseInt(prompt('Please enter the number of numbers you want to play between 1 and 10: ',0))
-        while(quantity<minNum || quantity>maxNum || isNaN(quantity)){
-            quantity = +parseInt(prompt(`Please enter a number between ${minNum} and 10: `,0))
-        }
-        return quantity
-    }
-    static selectNumbers(type){
-        const maxNum = 90
-        let numExtraction = this.selectQuantity(type)
-        const numbersArry = new Set() //unique values
-    
-        while (numbersArry.size!=numExtraction){
-            const randomNum = Math.floor(Math.random()*maxNum)+1
-            numbersArry.add(randomNum)
-        }
-        return [...numbersArry].sort((a,b)=>{return a-b}).join(',')
-    }
+
     /**
      * method to ask the bet of the bill
      * @return {String} 00.00 €
@@ -90,7 +88,7 @@ class Bill {
      * @returns {Boolean} True if the bill is a WIN bill otherwise false
      */
     checkWinBill(totalExtraction){
-        const thisTypeConverted = objType[this.type]
+        const thisTypeConverted = objTypeOfBills[this.type]
         const arrayNumbers =  this.numbers.split(',').map(n=>+n)
         const filterdArrayCommonNumbers =  totalExtraction[this.city].filter(number=>arrayNumbers.includes(number))
         if(filterdArrayCommonNumbers.length>=thisTypeConverted){return true}

@@ -1,17 +1,17 @@
 //package&import
-const {howManyBills, initializeUserBills, lottoExtraction, calculateNetPrize}  = require('./utils');
-const {currencyToNumber,numberToCurrency,arrayCurrencyToNumber}  = require('./utils-formatting');
-const {prizeTable}  = require('./utils-global-variable');
+const {howManyBills, initializeUserBills, lottoExtraction, calculateNetPrize}  = require('./utils/utils-business-logic');
+const {currencyToNumber,numberToCurrency,arrayCurrencyToNumber}  = require('./utils/utils-formatting-print');
+const {objPrizeTableGross}  = require('./utils/utils-global-variable');
 
 //variable from imported functions
 const bills = initializeUserBills(howManyBills())
 const allCityExtraction = lottoExtraction()
-const grossPrizeTable = prizeTable()
 
 //file variable for printing results
 const header = `+------------+----------+----------+-------------------------------+-------------+
 ¦   Bill n°  ¦   City   ¦   Type   ¦            Numbers            ¦     Bet     ¦
 +------------+----------+----------+-------------------------------+-------------+`
+
 const footer = `+------------+----------+----------+-------------------------------+-------------+`
 const maxBillNChar = 12 //max characters allowed in the Bill column
 const maxCityChar = 10 //max characters allowed in the City column
@@ -39,8 +39,7 @@ const printBills = (bills) => {
  * @returns {String} nice formatted string
  */
 const printTotalExtraction = extraction => {
-    const header = `
-Extractions:
+    const header = `Extractions:
 +----------+----------------+
 ¦ City     ¦ Numbers        ¦
 +----------+----------------+`
@@ -72,7 +71,7 @@ const checkBillsWinner = (extraction, bills) => {
         if (bill.checkWinBill(extraction)){
             arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city}  WON!`)
             winningBills.push(bill.print(maxBillNChar,maxCityChar,maxTypeChar,maxNumbersChar,maxBetChar))
-            winningPrizes.push(bill.calculatePrize(grossPrizeTable))
+            winningPrizes.push(bill.calculatePrize(objPrizeTableGross))
         }
         else arrayOfResultString.push(`Bill number ${bill.name} in the city of ${bill.city} LOOSE!`)
     })

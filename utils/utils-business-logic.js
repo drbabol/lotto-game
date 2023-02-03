@@ -1,6 +1,6 @@
 ////package &import
-const {cities}  = require('./utils-global-variable');
-const Bill  = require('./bill');
+const {cities,maxExtractedNum,minExtractedNum}  = require('./utils-global-variable');
+const Bill  = require('../bill');
 const prompt = require('prompt-sync')();
 
 /**
@@ -42,29 +42,28 @@ const initializeUserBills = billsNumber => {
 
 /**
  * function to create a random object of the extraction of all the cities
- * @returns {Object} objCity is an object composed {city: [n1,n2,n3,n4,n5]}
+ * @returns {Object} objLotto is an object composed {city: [n1,n2,n3,n4,n5]}
  */
 const lottoExtraction = () => {
 
     const extractedNumbers = new Set() //set of all the numbers for all the cities
     let startIndexArray = 0
     const numberExtractedForCity = 5
-    const totalNumberExtracted = numberExtractedForCity * cities.length //50
-    const maxNum = 90
-    const objCity = {}
+    const totalNumberExtracted = numberExtractedForCity * (cities.length-1) //50
+    const objLotto = {}
 
     while (extractedNumbers.size!=totalNumberExtracted){
-        const randomNumber = Math.floor(Math.random()*maxNum)+1
+        const randomNumber = Math.floor(Math.random()*maxExtractedNum)+minExtractedNum
         extractedNumbers.add(randomNumber)
     }
     const arrayExtractedNumbers = [...extractedNumbers]
     
     cities.forEach(city => {
-        objCity[city] = arrayExtractedNumbers.slice(startIndexArray,startIndexArray+numberExtractedForCity)
-        objCity[city].sort((a,b)=>{return a-b})
+        objLotto[city] = arrayExtractedNumbers.slice(startIndexArray,startIndexArray+numberExtractedForCity)
+        objLotto[city].sort((a,b)=>{return a-b})
         startIndexArray += 5
     })
-    return objCity
+    return objLotto
 }
 
 const calculateNetPrize = (grossPrize) => {
