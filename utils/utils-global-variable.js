@@ -1,7 +1,7 @@
 //global variable based on Lotto rules
 const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia', 'Tutte']
-const typeOfBills = ['ambata','ambo','terno','quaterna','cinquina']
-const objTypeOfBills = {'ambata':1,'ambo':2,'terno':3,'quaterna':4,'cinquina':5}
+const typeOfBills = ['Ambata','Ambo','Terno','Quaterna','Cinquina']
+const objTypeOfBills = {'Ambata':1,'Ambo':2,'Terno':3,'Quaterna':4,'Cinquina':5}
 
 //possible numbers to be extracted are between 1 and 90
 const maxExtractedNum = 90
@@ -11,7 +11,7 @@ const minExtractedNum = 1
 const maxPlayedNum = 10
 
 const objPrizeTableGross = {
-    'ambata': { 
+    'Ambata': { 
         1: 11.23,
         2: 5.61,
         3: 3.74,
@@ -23,7 +23,7 @@ const objPrizeTableGross = {
         9: 1.24,
         10: 1.12
     },
-    'ambo': {   
+    'Ambo': {   
         2: 250,
         3: 83.33,
         4: 41.66,
@@ -34,7 +34,7 @@ const objPrizeTableGross = {
         9: 6.94,
         10: 5.55
     },
-    'terno': {  
+    'Terno': {  
         3: 4500,
         4: 1125,
         5: 450,
@@ -44,7 +44,7 @@ const objPrizeTableGross = {
         9: 53.57,
         10: 37.50
     },
-    'quaterna':{
+    'Quaterna':{
         4: 120_000,
         5: 24_000,
         6: 8000,
@@ -53,7 +53,7 @@ const objPrizeTableGross = {
         9: 952.38,
         10: 571.42
     },
-    'cinquina':{
+    'Cinquina':{
         5: 6_000_000,
         6: 1_000_000,
         7: 285_714.28,
