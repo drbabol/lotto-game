@@ -1,6 +1,6 @@
 //global variable based on Lotto rules
 const cities = ['Bari','Cagliari','Firenze','Genova','Milano','Napoli','Palermo','Roma','Torino','Venezia', 'Tutte']
-const typeOfBills = ['Ambata','Ambo','Terno','Quaterna','Cinquina']
+const typeOfBills = ['Ambata','Ambo','Terno','Quaterna','Cinquina'] //'Ambata or Estratto
 const objTypeOfBills = {'Ambata':1,'Ambo':2,'Terno':3,'Quaterna':4,'Cinquina':5}
 
 //possible numbers to be extracted are between 1 and 90
@@ -9,6 +9,7 @@ const minExtractedNum = 1
 
 //possible numbers to be played on one Bill
 const maxPlayedNum = 10
+const minPlayedNum = 1
 
 const objPrizeTableGross = {
     'Ambata': { 
@@ -70,5 +71,6 @@ module.exports = {
     objPrizeTableGross, 
     maxExtractedNum,
     minExtractedNum,
-    maxPlayedNum
+    maxPlayedNum,
+    minPlayedNum
 }

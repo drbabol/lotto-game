@@ -1,6 +1,6 @@
 //package & import
-const {currencyToNumber,numberToCurrency,nChooseK}  = require('./utils/utils-formatting-print');
-const {cities,typeOfBills,objTypeOfBills,objPrizeTableGross,maxExtractedNum,minExtractedNum, maxPlayedNum}  = require('./utils/utils-global-variable');
+const {currencyToNumber,numberToCurrency,nChooseK,calculateNetPrize}  = require('./utils/utils-functionals');
+const {cities,typeOfBills,objTypeOfBills,objPrizeTableGross,maxExtractedNum,minExtractedNum, maxPlayedNum, minPlayedNum}  = require('./utils/utils-global-variable');
 const inquirer = require('inquirer');
 
 /**
@@ -17,6 +17,11 @@ class Bill {
         this.typeAndBet = typeAndBet // obj {type: bet, type2: bet2, ...}
         this.city = city //list of cities ['city1' ,'city2', ...]    
     }
+    /**
+     * select the quantity of numbers to play
+     * @param {Number} id the reference of the number of the bill the user is playing
+     * @returns {Array} list  of random numbers [n1,n2,..,n10]
+     */
     static async selectNumbers(id){
         console.log(`\nYou are selecting data for Bill number ${id}`)
         const numbersArry = new Set()
@@ -28,7 +33,7 @@ class Bill {
                 message: 'Please enter the quanty of numbers to play (1-10)',
                 validate: function(input) {
                     const number = parseInt(input);
-                    if (number >= 1 && number <= 10 && (/\D+/).test(input)===false) {
+                    if (number >= minPlayedNum && number <= maxPlayedNum && (/\D+/).test(input)===false) {
                         return true;
                     }
                     return 'Please enter a integer number between 1 and 10';
@@ -41,6 +46,11 @@ class Bill {
             }
         return [...numbersArry].sort((a,b)=>{return a-b});
     }
+    /**
+     * select the type the user want to play and hoe much want to bet on it
+     * @param {Number} numbersPlayed the length of the random numbers played 
+     * @returns {Object} obj {type: bet, type2: bet2, ...}
+     */
     static async selectType(numbersPlayed){
         const objTypeBet = {}
         const minBet = 1
@@ -50,7 +60,7 @@ class Bill {
         let answerContinue = true
         let checkPossibleType = true
         
-        while (answerContinue != false && checkPossibleType != false && maxBet!=0){ //
+        while (answerContinue!=false && checkPossibleType!=false && maxBet!=0){ //
             const answer = await inquirer
             .prompt([
                 {
@@ -75,14 +85,17 @@ class Bill {
                 {
                 type: 'confirm',
                 name: 'continue',
-                message: 'Do you want to add another type?',
+                message: 'Do you want to add another type?'
                 }
             ])
 
             objTypeBet[answer.types] =  parseFloat(answer.bet)
 
             if (answer.continue){answerContinue = true}else{answerContinue = false}
-            if (possibleTypeOfBills.filter(type => !Object.keys(objTypeBet).includes(type)).length===0){checkPossibleType = false,console.log(`all the possible types have been played`)}
+            if (possibleTypeOfBills.filter(type => !Object.keys(objTypeBet).includes(type)).length===0){
+                checkPossibleType = false
+                console.log(`all the possible types have been played`)
+            }
 
             totalBet = (Object.values(objTypeBet)).reduce((accumulator, currValue) => accumulator+currValue,0)
             maxBet = 200-totalBet              
@@ -90,6 +103,10 @@ class Bill {
         }
         return objTypeBet
     }
+    /**
+     * select the city/cities the user want to play
+     * @returns {Array} list of cities [city1, city2,...]
+     */
     static async selectCity(){
         const answers = await inquirer
         .prompt([
@@ -107,52 +124,47 @@ class Bill {
             }
             }
         ])
-        if(answers.cities.includes('Tutte')){return cities.filter(city=>city!='Tutte')}
+        if(answers.cities.includes('Tutte')){
+            const allcities =  cities.filter(city=>city!='Tutte')
+            return allcities
+        }
         return answers.cities
-        
-        // let city = prompt(`Please enter a city for the bill: `,'')
-        // while (cities.includes(city)!=true){
-        //     city = prompt(`Please enter a VALID city for the bill from the following list: ${cities.join(', ')}.`,'')
-        // }
-        // return city
     }
     /**
      * method to print one line bill parameters
-     * @param {Number} maxBillNChar max number of characters in the column of "Bill n°"
-     * @param {Number} maxCityCharmax number of characters in the column of "City"
-     * @param {Number} maxTypeChar number of characters in the column of "Type"
-     * @param {Number} maxNumbersChar number of characters in the column of "Numbers"
      * @returns {String} the single bill string in a nice template
      */// temp maxBillNChar,maxCityChar,maxTypeChar,maxNumbersChar,maxBetChar
-    print(){
+    printBill(){
 
         const maxWidthPrint = 36
-        const strongDelimitation = ''.padStart(maxWidthPrint+2,`~`)
-        const delimitation = ''.padStart(maxWidthPrint+2,`-`)
+        const strongDelimitation = `╞${'╡'.padStart(maxWidthPrint,`═`)}`
+        const delimitation = `│${'│'.padStart(maxWidthPrint,`─`)}`
+        const header = `┌${'┐'.padStart(maxWidthPrint,`─`)}`
+        const footer = `└${'┘'.padStart(maxWidthPrint,`─`)}`
         
-        const idTitle = `<<<< ID BILL: ${this.id.toString()} >>>>`
-        const billIdString = `¦${(idTitle.padStart((maxWidthPrint - idTitle.length + 1) / 2 + idTitle.length, ' ')).padEnd(maxWidthPrint,' ')}¦`;
+        const idTitle = `◇◇◇◇ ID BILL: #${this.id.toString()} ◇◇◇◇`
+        const billIdString = `│${(idTitle.padStart((maxWidthPrint - idTitle.length) / 2 + idTitle.length-1,' ')).padEnd(maxWidthPrint-1,' ')}│`;
         
         const numberTitle = this.numbers.join(',')
-        const numbersString =`¦${(numberTitle.padStart((maxWidthPrint - numberTitle.length) / 2 + numberTitle.length, ' ')).padEnd(maxWidthPrint,' ')}¦`;
+        const numbersString =`│${(numberTitle.padStart((maxWidthPrint - numberTitle.length) / 2 + numberTitle.length, ' ')).padEnd(maxWidthPrint-1,' ')}│`;
         
         const stringsTypeAndBet = []
         Object.keys(this.typeAndBet).forEach(type => {
-            stringsTypeAndBet.push(`¦${(type.padStart(type.length+1, ' ')+(numberToCurrency(this.typeAndBet[type])).padStart(30-type.length, ' ')).padEnd(maxWidthPrint,' ')}¦`)
+            stringsTypeAndBet.push(`│${(type.padStart(type.length+1, ' ')+(numberToCurrency(this.typeAndBet[type])).padStart(30-type.length, ' ')).padEnd(maxWidthPrint-1,' ')}│`)
         });
         const typeAndBetString = stringsTypeAndBet.join('\n')
 
         const group3Cities = []
         for (let i = 0; i < this.city.length; i += 3) {
-            group3Cities.push(`¦${(this.city.slice(i, i + 3).join(', ')).padStart(this.city.slice(i, i + 3).join(', ').length+1,' ').padEnd(maxWidthPrint,' ')}¦`);
+            group3Cities.push(`│${(this.city.slice(i, i + 3).join(', ')).padStart(this.city.slice(i, i + 3).join(', ').length+1,' ').padEnd(maxWidthPrint-1,' ')}│`);
         }
         const cityString = group3Cities.join(' \n')
 
         const totalBet = Object.values(this.typeAndBet).reduce((accumulator,currentValue) => accumulator+currentValue,0)
         const totalBetTitle = `Total bet`
-        const totalBetString = `¦${(totalBetTitle.padStart(totalBetTitle.length+1,' ')+numberToCurrency(totalBet).padStart(30-totalBetTitle.length,' ')).padEnd(maxWidthPrint,' ')}¦`
+        const totalBetString = `│${(totalBetTitle.padStart(totalBetTitle.length+1,' ')+numberToCurrency(totalBet).padStart(30-totalBetTitle.length,' ')).padEnd(maxWidthPrint-1,' ')}│`
 
-        const totalString = `${strongDelimitation}\n${billIdString}\n${strongDelimitation}\n${numbersString}\n${delimitation}\n${typeAndBetString}\n${delimitation}\n${cityString}\n${delimitation}\n${totalBetString}\n${delimitation}`
+        const totalString = `${header}\n${billIdString}\n${strongDelimitation}\n${numbersString}\n${delimitation}\n${typeAndBetString}\n${delimitation}\n${cityString}\n${delimitation}\n${totalBetString}\n${footer}`
         return totalString
     }
     /**
@@ -184,47 +196,39 @@ class Bill {
         }
         return winningCityNum
     }
-
     /**
      * method to calculate the gross prize. The calculation is made it considering the win of the bill 
      * @param {Object} grossTablePrize is an object of object where to find the gross value prize of the winning bill
      * @returns {String} 00.00 €
      */
-    calculatePrize(winningCityNum){
+    printResult(totalExtraction){
+        const winnBill = this.checkWin(totalExtraction)
+        let width = 36
 
-        if (winningCityNum === false){return}
+        if (winnBill === false){
+            const output = `${'┌'.padEnd(width,'─')}┐\n${`│ Bill #${this.id} did not win... ✘`.padEnd(width,' ')}│\n${'└'.padEnd(width,'─')}┘`
+            return output
+        }else{
+            const citisPrint = []
+            for (const city in winnBill){
 
-        for (const city in winningCityNum){
-            city[types].forEach(type => {
+                if(winnBill[city]['types'].join(', ').length + 12 > 36){width = winnBill[city]['types'].join(', ').length + 14 }
+                
+                const emptyLine = `${'│'.padEnd(width,' ')}│`
+                citisPrint.push(`${(`│ ${city} WIN with:  ✔`).padEnd(width,' ')}│\n${(`${`│ Types`.padEnd(10,' ')}→  ${winnBill[city]['types'].join(', ')}`).padEnd(width,' ')}│\n${(`│ Numbers →  ${winnBill[city]['numbers'].join(', ')} `).padEnd(width,' ')}│\n${(`${`│ Prize`.padEnd(10,' ')}→  ${numberToCurrency(winnBill[city]['prize'])} `).padEnd(width,' ')}│\n${emptyLine}`)
+            }
+            const totalPrize = numberToCurrency(Object.values(winnBill).reduce((acc,curr)=>acc + curr['prize'],0))
+            const totalNetPrize = calculateNetPrize(currencyToNumber(totalPrize))
 
-            })
+            if (totalPrize===totalNetPrize){
+                const output = `${'┌'.padEnd(width,'─')}┐\n${(`│ BILL #${this.id.toString()} WIN!`).padEnd(width,' ')}│\n${'╞'.padEnd(width,'═')}╡\n${citisPrint.join(`\n`)}\n${`│ Total prize = ${totalPrize}`.padEnd(width,' ')}│\n${'└'.padEnd(width,'─')}┘`
+                return output
+            }else{
+                const output = `${'┌'.padEnd(width,'─')}┐\n${(`│ BILL #${this.id.toString()} WIN!`).padEnd(width,' ')}│\n${'╞'.padEnd(width,'═')}╡\n${citisPrint.join(`\n`)}\n${`│ Total prize -8% = ${totalNetPrize}`.padEnd(width,' ')}│\n${'└'.padEnd(width,'─')}┘`
+                return output
+            }
         }
-
-
-
-        // const arrayNumbers =  this.numbers.split(',').map(n=>+n)
-        // const grossPrize = grossTablePrize[this.type][arrayNumbers.length] * currencyToNumber(this.bet)
-        // const formattedGrossPrize = numberToCurrency(grossPrize)
-        // return formattedGrossPrize 
     }
 }
-
-// async function main() {
-//     const selectNumbers = await Bill.selectNumbers()
-//     const selectTypes = await Bill.selectType(selectNumbers.length)
-//     const selectedCities = await Bill.selectCity();
-
-//     const bill = new Bill(1,selectNumbers,selectTypes,selectedCities)
-//     return bill
-// }
-
-// main().then(bill=> console.log(bill.print()))
-
-
-// const billTest = new Bill(1,[1,2,3,4],{'Quaterna':1,'Ambo':1},['Roma','Venezia','Bari'])
-// const exampleLotto = {'Roma': [2,3,4,7,1],'Venezia':[13,25,33,44,55],'Bari':[52,34,8,23,64]}
-
-// console.log(billTest.checkWin(exampleLotto))
-
 
 module.exports = Bill
