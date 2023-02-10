@@ -1,0 +1,21 @@
+{
+  "name": "js-lotto",
+  "version": "1.0.0",
+  "description": "italian lotto simulation",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "lotto-game"
+  },
+  "author": "LG",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^8.2.5"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "devDependencies": {
+    "jest": "^29.4.0"
+  }
+}

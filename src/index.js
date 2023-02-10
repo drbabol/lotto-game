@@ -1,37 +1,27 @@
-//import
-const {howManyBills, initializeUserBills}  = require('./utils');
-const Bill  = require('./bill');
+//package&import
+const execute  = require('./utils/business-logic');
 
-//array of object
-const bills = initializeUserBills(howManyBills())
+// Lotto game
+const game = async() => {
 
-/**
- * Function to print my objects bills
- * @param {Array of Object} bills array of bills
- * @returns {string} string with nice format
- */
-const printBills = (bills) => {
-    if(bills === undefined){return  `Please restart the software and select the number of bills you want to play.`}
+    //Bill generator
+    const bills = await execute.billsGenerator()
+    execute.printBills(bills)
+    //Lotto extraction generator
+    const lotto = execute.lottoExtraction(bills)
+    execute.printLottoExtraction(lotto)
+    
+    //print win and loose bills
+    execute.printResultBills(bills,lotto)
 
-    const maxBillNChar = 12 
-    const maxCityChar = 10
-    const maxTypeChar = 10
-    const maxNumbersChar = 31
+    //end-restart game
+    return execute.play(game)
+} 
+game()
 
-    const header = `
-+------------+----------+----------+-------------------------------+
-¦   Bill n°  ¦   City   ¦   Type   ¦            Numbers            ¦
-+------------+----------+----------+-------------------------------+`
-    const footer = `+------------+----------+----------+-------------------------------+`
 
-    const arrayOfbillsString = []
 
-    bills.forEach(bill => {
-        arrayOfbillsString.push(bill.print(maxBillNChar,maxCityChar,maxTypeChar,maxNumbersChar))     
-    });
-    const output = `${header}\n${arrayOfbillsString.join('\n')}\n${footer}`
-    return output
-}
 
-//personal tests 
-console.log(printBills(bills))
+
+
+
