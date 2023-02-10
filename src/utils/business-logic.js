@@ -1,6 +1,6 @@
 ////package &import
-const {cities,maxExtractedNum,minExtractedNum}  = require('./utils-global-variable');
-const Bill  = require('../bill');
+const {cities,maxExtractedNum,minExtractedNum}  = require('./global-variable');
+const Bill  = require('../bill/bill');
 const inquirer = require('inquirer');
 
 /**

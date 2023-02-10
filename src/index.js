@@ -1,5 +1,5 @@
 //package&import
-const execute  = require('./utils/utils-business-logic');
+const execute  = require('./utils/business-logic');
 
 // Lotto game
 const game = async() => {

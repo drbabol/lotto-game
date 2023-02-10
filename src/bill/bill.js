@@ -1,6 +1,6 @@
 //package & import
-const {currencyToNumber,numberToCurrency,nChooseK,calculateNetPrize}  = require('./utils/utils-functionals');
-const {cities,typeOfBills,objTypeOfBills,objPrizeTableGross,maxExtractedNum,minExtractedNum, maxPlayedNum, minPlayedNum}  = require('./utils/utils-global-variable');
+const {currencyToNumber,numberToCurrency,nChooseK,calculateNetPrize}  = require('../utils/functionals');
+const {cities,typeOfBills,objTypeOfBills,objPrizeTableGross,maxExtractedNum,minExtractedNum, maxPlayedNum, minPlayedNum}  = require('../utils/global-variable');
 const inquirer = require('inquirer');
 
 /**
