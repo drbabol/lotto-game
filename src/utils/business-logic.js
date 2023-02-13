@@ -134,6 +134,7 @@ const printLottoExtraction = extraction => {
         for (const key in extraction){
             arrayOutput.push(`│${(key.padStart(key.length + 1,' ')+`│`.padStart(10-key.length,' ') + extraction[key].toString().padStart(extraction[key].toString().length + 1,' ')).padEnd(27,' ')}│`)
         }
+        arrayOutput.pop()
         const output = `${header}\n${arrayOutput.join('\n')}\n${footer}`
         return console.log(output)
     }
