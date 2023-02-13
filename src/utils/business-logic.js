@@ -112,8 +112,8 @@ const lottoExtraction = (bills) => {
             extractedNumbers.add(randomNumber)
         }
         const arrayExtractedNumbers = [...extractedNumbers]
-        cities.pop()
-        cities.forEach(city => {
+        const citiesNoTutti = cities.filter(noTutti=>cities.includes(noTutti))
+        citiesNoTutti.forEach(city => {
             objLotto[city] = arrayExtractedNumbers.slice(startIndexArray,startIndexArray+numberExtractedForCity)
             objLotto[city].sort((a,b)=>{return a-b})
             startIndexArray += 5
