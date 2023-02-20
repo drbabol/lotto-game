@@ -98,7 +98,7 @@ const lottoExtraction = () => {
 		extractedNumbers.add(randomNumber);
 	}
 	const arrayExtractedNumbers = [...extractedNumbers];
-	const citiesNoTutti = cities.filter((noTutti) => cities.includes(noTutti));
+	const citiesNoTutti = cities.filter((city) => city !== 'Tutte');
 	citiesNoTutti.forEach((city) => {
 		objLotto[city] = arrayExtractedNumbers.slice(startIndexArray, startIndexArray + numberExtractedForCity);
 		objLotto[city].sort((a, b) => {

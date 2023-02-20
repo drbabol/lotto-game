@@ -6,14 +6,12 @@ const Bill = require('../bill/bill');
  * @returns {String} string with nice format
  */
 const printBills = (bills) => {
-	if (bills.length != 0) {
-		const arrayOfbillsString = [];
-		bills.forEach((bill) => {
-			arrayOfbillsString.push(bill.printBill());
-		});
-		const output = `$\n${arrayOfbillsString.join('\n')}\n`;
-		return output;
-	}
+	const arrayOfbillsString = [];
+	bills.forEach((bill) => {
+		arrayOfbillsString.push(bill.printBill());
+	});
+	const output = `$\n${arrayOfbillsString.join('\n')}\n`;
+	return output;
 };
 
 /**
@@ -22,19 +20,14 @@ const printBills = (bills) => {
  * @returns {String} nice formatted string
  */
 const printLottoExtraction = (extraction) => {
-	if (extraction != undefined) {
-		const header = `Extractions:\n┌──────────┬────────────────┐\n│ City     │ Numbers        │\n├──────────┼────────────────┤`;
-		const footer = `└──────────┴────────────────┘\n`;
-		const arrayOutput = [];
-		for (const key in extraction) {
-			arrayOutput.push(
-				`│${(key.padStart(key.length + 1, ' ') + `│`.padStart(10 - key.length, ' ') + extraction[key].toString().padStart(extraction[key].toString().length + 1, ' ')).padEnd(27, ' ')}│`
-			);
-		}
-		arrayOutput.pop();
-		const output = `${header}\n${arrayOutput.join('\n')}\n${footer}`;
-		return output;
+	const header = `Extractions:\n┌──────────┬────────────────┐\n│ City     │ Numbers        │\n├──────────┼────────────────┤`;
+	const footer = `└──────────┴────────────────┘\n`;
+	const arrayOutput = [];
+	for (const key in extraction) {
+		arrayOutput.push(`│${(key.padStart(key.length + 1, ' ') + `│`.padStart(10 - key.length, ' ') + extraction[key].toString().padStart(extraction[key].toString().length + 1, ' ')).padEnd(27, ' ')}│`);
 	}
+	const output = `${header}\n${arrayOutput.join('\n')}\n${footer}`;
+	return output;
 };
 
 /**
