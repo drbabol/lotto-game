@@ -1,4 +1,4 @@
-////package &import
+//package &import
 const { cities, maxExtractedNum, minExtractedNum } = require('./global-variable');
 const Bill = require('../bill/bill');
 const inquirer = require('inquirer');
@@ -28,7 +28,6 @@ const play = async (game) => {
  * function to determine how many bills the user want to generate
  * @returns {Number} number of bills
  */
-//
 const howManyBills = async () => {
 	const minNum = 0;
 	const maxNum = 5;
@@ -68,6 +67,7 @@ const initializeUserBills = async (billsNumber) => {
 	}
 	return billsWithContent;
 };
+
 /**
  * generate bills
  * @returns {Array of Object} array of bills
@@ -87,8 +87,6 @@ const billsGenerator = async () => {
  * @returns {Object} objLotto is an object composed {city: [n1,n2,n3,n4,n5]}
  */
 const lottoExtraction = () => {
-	//if the billsWith content = [] meaning howMany() = 0 then don't extract
-	// if (bills.length != 0) {
 	const extractedNumbers = new Set(); //set of all the numbers for all the cities
 	let startIndexArray = 0;
 	const numberExtractedForCity = 5;
