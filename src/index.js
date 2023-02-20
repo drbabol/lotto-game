@@ -6,15 +6,18 @@ const print = require('./utils/prints');
 const game = async () => {
 	//bill generator
 	const bills = await execute.billsGenerator();
-	console.log(print.printBills(bills));
 
-	//lotto extraction generator
-	const lotto = execute.lottoExtraction();
-	console.log(print.printLottoExtraction(lotto));
+	if (bills) {
+		console.log(print.printBills(bills));
 
-	//check and print win and loose bills
-	const results = execute.checkWinBill(bills, lotto);
-	console.log(print.printResultBills(results));
+		//lotto extraction generator
+		const lotto = execute.lottoExtraction();
+		console.log(print.printLottoExtraction(lotto));
+
+		//check and print win and loose bills
+		const results = execute.checkWinBill(bills, lotto);
+		console.log(print.printResultBills(results));
+	}
 
 	//end-restart game
 	return execute.play(game);

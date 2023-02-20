@@ -47,7 +47,7 @@ const howManyBills = async () => {
 		},
 	]);
 	if (answer.number === '0') {
-		return console.log('The game stop, restart the game if wou want to play');
+		return false;
 	}
 	return parseInt(answer.number);
 };
@@ -74,8 +74,8 @@ const initializeUserBills = async (billsNumber) => {
  */
 const billsGenerator = async () => {
 	const numBills = await howManyBills();
-	if (isNaN(numBills)) {
-		return [];
+	if (!numBills) {
+		return false;
 	} else {
 		const userBills = await initializeUserBills(numBills);
 		return userBills;
@@ -119,13 +119,11 @@ const lottoExtraction = () => {
  * [false,{Venezia:{numbers:[1,2,3,4],types:['Ambata','Quaterna'],prize: 120000},Bari:{numbers:[1,3],types:['Ambata'],prize: 22.46}},...]
  */
 const checkWinBill = (bills, lotto) => {
-	if (lotto != undefined) {
-		const arrayOfbills = [];
-		bills.forEach((bill) => {
-			arrayOfbills.push(bill.checkWin(lotto));
-		});
-		return arrayOfbills;
-	}
+	const arrayOfbills = [];
+	bills.forEach((bill) => {
+		arrayOfbills.push(bill.checkWin(lotto));
+	});
+	return arrayOfbills;
 };
 
 module.exports = {
