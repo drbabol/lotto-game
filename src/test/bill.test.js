@@ -47,7 +47,7 @@ describe('chech methos from a test bill', () => {
 		expect(actual).toBe(expected);
 	});
 
-	test('test printResult method win', () => {
+	test('test printResult method win no taxes e not too width', () => {
 		const lottoExtraction = { Bari: [11, 12, 23, 14, 15], Roma: [1, 2, 3, 4, 5] };
 
 		const expected = `┌───────────────────────────────────┐
@@ -66,6 +66,35 @@ describe('chech methos from a test bill', () => {
 │ Total prize = 9,00\u00A0€              │
 └───────────────────────────────────┘`;
 		const checkWinBill = billTest.checkWin(lottoExtraction);
+		actual = Bill.printResult(checkWinBill, 1);
+		expect(actual).toBe(expected);
+	});
+
+	test('test printResult method win taxes e not too width', () => {
+		const lottoExtraction = { Bari: [11, 12, 23, 14, 15], Roma: [1, 2, 3, 4, 5] };
+
+		const id = 1;
+		const numbers = [1, 11, 12, 23, 14, 15, 55, 66, 77, 88];
+		const typeAndBet = { Ambata: 10, Ambo: 20, Terno: 10, Quaterna: 10, Cinquina: 10 };
+		const city = ['Bari', 'Roma'];
+		const billTest2 = new Bill(id, numbers, typeAndBet, city);
+
+		const expected = `┌────────────────────────────────────────────────────┐
+│ BILL #1 WIN!                                       │
+╞════════════════════════════════════════════════════╡
+│ Bari WIN with:  ✔                                  │
+│ Types   →  Ambata, Ambo, Terno, Quaterna, Cinquina │
+│ Numbers →  11, 12, 23, 14, 15                      │
+│ Prize   →  27.103,00\u00A0€                             │
+│                                                    │
+│ Roma WIN with:  ✔                                  │
+│ Types   →  Ambata                                  │
+│ Numbers →  1                                       │
+│ Prize   →  1,00\u00A0€                                  │
+│                                                    │
+│ Total prize -8% = 24.935,68\u00A0€                      │
+└────────────────────────────────────────────────────┘`;
+		const checkWinBill = billTest2.checkWin(lottoExtraction);
 		actual = Bill.printResult(checkWinBill, 1);
 		expect(actual).toBe(expected);
 	});
