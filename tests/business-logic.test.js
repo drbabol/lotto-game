@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
-const Bill = require('../bill/bill');
-const { howManyBills, lottoExtraction, checkWinBill } = require('../utils/business-logic');
+const Bill = require('../src/bill/bill');
+const { howManyBills, lottoExtraction, checkWinBill } = require('../src/utils/business-logic');
 
 jest.mock('inquirer');
 

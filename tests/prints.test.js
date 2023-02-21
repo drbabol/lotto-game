@@ -1,5 +1,5 @@
-const { printBills, printLottoExtraction, printResultBills } = require('../utils/prints');
-const Bill = require('../bill/bill');
+const { printBills, printLottoExtraction, printResultBills } = require('../src/utils/prints');
+const Bill = require('../src/bill/bill');
 
 describe('function prints', () => {
 	test('printBills: should return the print of all the bills', () => {

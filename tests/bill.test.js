@@ -1,4 +1,4 @@
-const Bill = require('../bill/bill');
+const Bill = require('../src/bill/bill');
 
 describe('chech methos from a test bill', () => {
 	const id = 1;

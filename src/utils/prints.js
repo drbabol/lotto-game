@@ -10,7 +10,7 @@ const printBills = (bills) => {
 	bills.forEach((bill) => {
 		arrayOfbillsString.push(bill.printBill());
 	});
-	const output = `$\n${arrayOfbillsString.join('\n')}\n`;
+	const output = `\n${arrayOfbillsString.join('\n')}\n`;
 	return output;
 };
 
@@ -41,7 +41,7 @@ const printResultBills = (winnersOrLooser) => {
 	for (const [index, winOrLoose] of winnersOrLooser.entries()) {
 		arrayOfbillsString.push(Bill.printResult(winOrLoose, index + 1));
 	}
-	const output = `$\n${arrayOfbillsString.join('\n')}\n`;
+	const output = `\n${arrayOfbillsString.join('\n')}\n`;
 	return output;
 };
 

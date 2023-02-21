@@ -1,4 +1,4 @@
-const { calculateNetPrize } = require('../utils/functionals');
+const { calculateNetPrize } = require('../src/utils/functionals');
 
 describe('function functionals', () => {
 	test('calculateNetPrize: should return the 8% less value after tay', () => {
