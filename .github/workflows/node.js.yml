@@ -1,4 +1,4 @@
-name: CI
+name: Node.js CI
 
 # trigger for the execution of workflow
 on:
