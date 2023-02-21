@@ -198,6 +198,11 @@ Output:
 
 You can choose if you want to play again.
 
+## Test
+This ara the result of the jest test implemented
+![image](https://user-images.githubusercontent.com/35449770/220310124-faf07559-8e4c-4956-9e94-a1103be5a87b.png)
+Note: the function that incorporate the library inquire are not tested.
+
 
 
 
