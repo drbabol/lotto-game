@@ -200,6 +200,8 @@ You can choose if you want to play again.
 
 ## Test
 This are the results of the jest test implemented
+
+
 ![image](https://user-images.githubusercontent.com/35449770/220310124-faf07559-8e4c-4956-9e94-a1103be5a87b.png)
 
 
